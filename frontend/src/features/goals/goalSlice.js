@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authSlice from "../auth/authSlice";
 import goalService from "./goalService";
 
 const initialState = {
@@ -10,7 +9,6 @@ const initialState = {
   message: "",
 };
 
-
 // Create new goal
 
 export const createGoal = createAsyncThunk(
@@ -19,6 +17,25 @@ export const createGoal = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await goalService.createGoal(goalData, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Update goal
+export const updateGoal = createAsyncThunk(
+  "goals/update",
+  async ({ goalId, goalData }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await goalService.updateGoal(goalId, goalData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -50,7 +67,6 @@ export const getGoals = createAsyncThunk(
     }
   }
 );
-
 
 // Delete user goal
 
@@ -117,6 +133,21 @@ export const goalSlice = createSlice({
         );
       })
       .addCase(deleteGoal.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateGoal.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateGoal.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.goals = state.goals.map((goal) =>
+          goal._id === action.payload._id ? (goal = action.payload) : goal
+        );
+      })
+      .addCase(updateGoal.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

@@ -2,12 +2,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import GoalFrom from "../components/GoalFrom";
+import GoalFrom from "../components/GoalForm";
 import Spinner from "../components/Spinner";
 import { getGoals } from "../features/goals/goalSlice";
 import GoalItem from "../components/GoalItem";
 import { reset } from "../features/auth/authSlice";
-
 
 function Dashboard() {
   const navigate = useNavigate();
