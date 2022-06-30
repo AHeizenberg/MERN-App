@@ -3,6 +3,7 @@ import axios from "axios";
 const API_URL = "/api/goals/";
 
 // create goal
+
 const createGoal = async (goalData, token) => {
   const config = {
     headers: {
@@ -14,6 +15,7 @@ const createGoal = async (goalData, token) => {
 
   return response.data;
 };
+
 
 // get goal
 const getGoals = async (token) => {

@@ -8,6 +8,7 @@ import { getGoals } from "../features/goals/goalSlice";
 import GoalItem from "../components/GoalItem";
 import { reset } from "../features/auth/authSlice";
 
+
 function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
