@@ -3,13 +3,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   goals: [],
   isError: false,
-  isSucces: false,
+  isSuccess: false,
   isLoading: false,
   message: "",
 };
 
 export const goalSlice = createSlice({
-  name: "goals",
+  name: "goal",
   initialState,
   reducers: {
     reset: (state) => initialState,

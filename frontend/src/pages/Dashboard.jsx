@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import GoalFrom from "../components/GoalFrom";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Dashboard() {
         <h1>Welcome {user && user.name} </h1>
         <p>Goals Dashboard</p>
       </section>
+      <GoalFrom />
     </>
   );
 }
